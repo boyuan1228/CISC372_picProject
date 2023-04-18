@@ -1,22 +1,31 @@
-Script started on Sun Apr 16 14:02:34 2023
-]0;allenyby@r1n00.darwin:~/pic[?1034h[allenyby@r1n00 pic]$ gcc image_pthread.c -lpthread -o image -lm
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ ./image image1      pic1.jop  pg edge 
-Took 6 seconds
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ ls
-README.md  image.c  image_openmp.c   makefile	 output.txt  pic2.jpg  pic4.jpg     stb_image_write.h
-image	   image.h  image_pthread.c  output.png  pic1.jpg    pic3.jpg  stb_image.h
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ gcc -fopenmpo  p image_f openmp.c -o image -lm
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ salloc --ntasks=1 --cpus-per-task=4 --partition=standard
-salloc: Granted job allocation 3984122
+Script started on Tue 18 Apr 2023 01:43:21 PM EDT
+]0;allenyby@login00.darwin:~[?1034h[(ea-cisc372:allenyby)@login00.darwin ~]$ salloc --ntasks=1 --cpus-per-task=4 --partition=standard
+salloc: Granted job allocation 3984643
 salloc: Waiting for resource configuration
 salloc: Nodes r1n00 are ready for job
-]0;allenyby@r1n00.darwin:~/pic[?1034h[allenyby@r1n00 pic]$ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ srun ./image pic` 1.jpg edge
-Took 8 seconds
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ exit
-logout
-salloc: Relinquishing job allocation 3984122
+]0;allenyby@r1n00.darwin:~[?1034h[allenyby@r1n00 ~]$ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+
+]0;allenyby@r1n00.darwin:~[allenyby@r1n00 ~]$ gcc -fopenmp image_openmp.c -lm -o image_openmp
+
+gcc: error: image_openmp.c: No such file or directory
+
+]0;allenyby@r1n00.darwin:~[allenyby@r1n00 ~]$ cd pic
+
+]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ gcc -fopenmp image_openmp.c -lm -o image_openmp
+
+]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ gcc image_pthread.c -lpthread -o image_pthread -lm
+
+]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ srun ./image pic1.jpg edge
+
+Took 7 seconds
+
 ]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ exit
+
+logout
+
+salloc: Relinquishing job allocation 3984643
+salloc: Job allocation 3984643 has been revoked.
+]0;allenyby@login00.darwin:~[(ea-cisc372:allenyby)@login00.darwin ~]$ exit
 exit
 
-Script done on Sun Apr 16 14:05:01 2023
+Script done on Tue 18 Apr 2023 01:44:28 PM EDT
