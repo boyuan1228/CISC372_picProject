@@ -1,31 +1,33 @@
-Script started on Tue 18 Apr 2023 01:43:21 PM EDT
-]0;allenyby@login00.darwin:~[?1034h[(ea-cisc372:allenyby)@login00.darwin ~]$ salloc --ntasks=1 --cpus-per-task=4 --partition=standard
-salloc: Granted job allocation 3984643
+Script started on Wed 19 Apr 2023 03:52:42 PM EDT
+[(ea-cisc372:allenyby)@login01.darwin ~]$ ls
+372  output.txt
+[(ea-cisc372:allenyby)@login01.darwin ~]$ cd 372
+[(ea-cisc372:allenyby)@login01.darwin 372]$ ls
+image.c  image_openmp.c   makefile  pic2.jpg  pic4.jpg   stb_image.h
+image.h  image_pthread.c  pic1.jpg  pic3.jpg  README.md  stb_image_write.h
+[(ea-cisc372:allenyby)@login01.darwin 372]$ gcc -fopenmp image_openmp.c -lm -o image_openmp
+[(ea-cisc372:allenyby)@login01.darwin 372]$ ./image_openmp pic1.jpg edge
+Took 6 seconds
+[(ea-cisc372:allenyby)@login01.darwin 372]$ gcc image_pthread.c -lpthread -o image_pthread -lm
+[(ea-cisc372:allenyby)@login01.darwin 372]$ ./image_pthread pic1.jpg edge
+Took 6 seconds
+[(ea-cisc372:allenyby)@login01.darwin 372]$ salloc --ntasks=1 --cpus-per-task=4 --partition=standard
+salloc: Granted job allocation 3985282
 salloc: Waiting for resource configuration
 salloc: Nodes r1n00 are ready for job
-]0;allenyby@r1n00.darwin:~[?1034h[allenyby@r1n00 ~]$ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-
-]0;allenyby@r1n00.darwin:~[allenyby@r1n00 ~]$ gcc -fopenmp image_openmp.c -lm -o image_openmp
-
-gcc: error: image_openmp.c: No such file or directory
-
-]0;allenyby@r1n00.darwin:~[allenyby@r1n00 ~]$ cd pic
-
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ gcc -fopenmp image_openmp.c -lm -o image_openmp
-
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ gcc image_pthread.c -lpthread -o image_pthread -lm
-
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ srun ./image pic1.jpg edge
-
+[allenyby@r1n00 372]$ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+[allenyby@r1n00 372]$ ls
+README.md  image.h       image_openmp.c  image_pthread.c  output.png  pic2.jpg  pic4.jpg     stb_image_write.h
+image.c    image_openmp  image_pthread   makefile         pic1.jpg    pic3.jpg  stb_image.h
+[allenyby@r1n00 372]$ srun ./image_openmp pic1.jpg edge
+Took 6 seconds
+[allenyby@r1n00 372]$ srun ./image_pthread pic1.jpg edge
 Took 7 seconds
-
-]0;allenyby@r1n00.darwin:~/pic[allenyby@r1n00 pic]$ exit
-
+[allenyby@r1n00 372]$ exit
 logout
-
-salloc: Relinquishing job allocation 3984643
-salloc: Job allocation 3984643 has been revoked.
-]0;allenyby@login00.darwin:~[(ea-cisc372:allenyby)@login00.darwin ~]$ exit
+srun: error: r1n00: task 0: Exited with exit code 2
+salloc: Relinquishing job allocation 3985282
+[(ea-cisc372:allenyby)@login01.darwin 372]$ exit
 exit
 
-Script done on Tue 18 Apr 2023 01:44:28 PM EDT
+Script done on Wed 19 Apr 2023 03:56:06 PM EDT
